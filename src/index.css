@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------------------- */
+/* Theme tokens. Dark is the default (:root). The Light theme is applied   */
+/* by adding the `light` class to <html> (see ThemeToggle.jsx).            */
+/* ---------------------------------------------------------------------- */
+:root {
+  --ink-950: #0a0d12;
+  --ink-900: #0d1117;
+  --ink-800: #131820;
+  --ink-700: #1b222d;
+  --ink-600: #242d3a;
+  --ink-border: #232b37;
+
+  --paper-100: #eef2f6;
+  --paper-300: #c4ccd6;
+  --paper-500: #8b96a5;
+
+  --amber: #efb35a;
+  --amber-soft: #f6d9a6;
+  --teal: #5cc8b8;
+  --teal-soft: #9fe3d8;
+}
+
+html.light {
+  --ink-950: #0a0d12;
+  --ink-900: #f6f7f9;
+  --ink-800: #ffffff;
+  --ink-700: #eef1f4;
+  --ink-600: #e2e6eb;
+  --ink-border: #dde2e8;
+
+  --paper-100: #10151c;
+  --paper-300: #3a4148;
+  --paper-500: #66707a;
+
+  --amber: #b8720a;
+  --amber-soft: #995e08;
+  --teal: #0e8f82;
+  --teal-soft: #0b7a6e;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-ink-900 text-paper-100 font-sans antialiased;
+  background-image: radial-gradient(
+      ellipse 80% 50% at 50% -10%,
+      rgba(92, 200, 184, 0.08),
+      transparent
+    ),
+    radial-gradient(ellipse 60% 40% at 100% 0%, rgba(239, 179, 90, 0.06), transparent);
+  background-attachment: fixed;
+}
+
+::selection {
+  background-color: rgba(239, 179, 90, 0.25);
+  color: #fff;
+}
+
+/* Reveal-on-scroll utility, driven by IntersectionObserver via useScrollReveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+:focus-visible {
+  outline: 2px solid #efb35a;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--ink-900);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--ink-border);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-600);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
